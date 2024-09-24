@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poller+One&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+  .poller {
+    font-family: "Poller One", serif;
+  }
+
+  .poppins {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+/* scrollbar styles */
+
+/* For webkit browsers (like Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 20px !important;
+  /* Increased width for better visibility */
+}
+
+::-webkit-scrollbar-track {
+  background: #12122b;
+  /* Darker background color for better contrast */
+  /* border-radius: 12px; */
+  /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #70e9d5, #7a5fff);
+  /* More vibrant gradient colors */
+  border-radius: 6px;
+  /* Rounded corners for the thumb */
+  border: 3px solid #12122b;
+  /* Slightly thicker border around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background: linear-gradient(45deg, #ffa4ff, #70e9d5);
+  /* Brighter hover color */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: auto;
+  /* Normal scrollbar width for better visibility */
+  /* scrollbar-color: #7a5fff #12122b; */
+  /* Thumb color and track color for better contrast */
+}
+
+.text-stroke {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+
+
+.animate-pulse-blur {
+  animation: pulse-blur 1s ease-in-out infinite;
+}
+
+@keyframes pulse-blur {
+
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0, 0.3);
+    color: #a5e7f1;
+  }
+
+  50% {
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0, 0.1);
+    color: blue;
+  }
+}
+
+
+
+.notification-container {
+  width: fit-content !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.notification {
+  padding: 15px 30px 15px 58px !important;
+  color: white !important;
+  border-radius: 6px !important;
+  opacity: 1 !important;
+}
+
+.notification-info {
+  background-color: #1975ff !important;
+  color: white !important;
+}
+
+.notification-warning {
+  background-color: #ffae00 !important;
+  color: white !important;
+}
