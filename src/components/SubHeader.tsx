@@ -36,15 +36,11 @@ export const SubHeader = () => {
                 key={val.id}
                 className="flex items-center gap-3"
                 onClick={() => {
-                  NotificationManager.info(
-                    "Coming soon.",
-                    "",
-                    3000
-                  );
+                  NotificationManager.info("Coming soon.", "", 3000);
                   return;
                 }}
               >
-                <p className="uppercase font-medium text-[10px] sm:text-sm md:text-[15px] lg:text-2xl hover:text-white/80 transition-all duration-300 cursor-pointer">
+                <p className="uppercase font-medium text-[10px] sm:text-sm md:text-[15px] lg:text-2xl hover:text-[#C23631] transition-all duration-300 cursor-pointer">
                   {val.title}
                 </p>
                 {index !== heroLinks.length - 1 && (
@@ -59,7 +55,7 @@ export const SubHeader = () => {
                   href={val.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="uppercase font-medium text-[10px] sm:text-sm md:text-[15px] lg:text-2xl hover:text-white/80 transition-all duration-300 cursor-pointer"
+                  className="uppercase font-medium text-[10px] sm:text-sm md:text-[15px] lg:text-2xl hover:text-[#C23631] transition-all duration-300 cursor-pointer"
                 >
                   {val.title}
                 </a>
@@ -72,7 +68,11 @@ export const SubHeader = () => {
         })}
       </nav>
       <button>
-        <img src={GetStartedToday} className="w-full md:w-[180px] lg:w-full" alt="Get Started Today" />
+        <img
+          src={GetStartedToday}
+          className="w-full md:w-[180px] lg:w-full"
+          alt="Get Started Today"
+        />
       </button>
     </div>
   );

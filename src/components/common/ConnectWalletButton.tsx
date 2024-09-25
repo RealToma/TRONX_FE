@@ -31,7 +31,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
             <div className="p-2">
               <button
                 onClick={disconnect}
-                className="block w-full px-3 sm:px-3 md:px-[12px] lg:px-20 text-white rounded-lg py-2 transition bg-[#C23631] hover:bg-[#E23631] shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                className="block w-full px-3 sm:px-3 md:px-[12px] lg:px-20 text-white rounded-lg py-2 transition bg-[#C23631] hover:bg-[#923631] shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
                 Disconnect
               </button>

@@ -18,7 +18,9 @@ export const Calculator = () => {
     setSolAmount(0);
   };
 
-  const availableValues = [0.1, 0.3, 0.5, 1, 1.5, 3, 5, 10, 25, 55, 50, 100];
+  const availableValues = [
+    100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 100000,
+  ];
 
   return (
     <div className="flex items-center justify-center lg:block ">
@@ -33,13 +35,13 @@ export const Calculator = () => {
             <div
               className={`relative rounded-[6px] inline-block p-[2px] w-full  mb-5`}
               style={{
-                background: "linear-gradient(to right, #623EFF, #7AD6FF)", //
+                background: "linear-gradient(to right, #fff, #000)", //
               }}
             >
-              <div className="bg-[#171c2c] text-right p-4 rounded-lg">
+              <div className="bg-[#fff] text-right p-4 rounded-lg">
                 <span
                   className={`${
-                    balance < solAmount ? "text-red-600" : "text-white"
+                    balance < solAmount ? "text-[#C23631]" : "text-black"
                   }  text-2xl`}
                 >
                   {solAmount} SOL
@@ -50,31 +52,31 @@ export const Calculator = () => {
               {availableValues.map((amount, i) => (
                 <div
                   key={i}
-                  className={`relative bg-button-gradient-2 inline-block rounded-[6px] p-[2px]`}
+                  className={`relative bg-button-gradient-custom2 inline-block rounded-[6px] p-[2px]`}
                 >
                   <button
                     onClick={() => handleAmountClick(amount)}
                     className={`
-          relative bg-[#191e34] hover:bg-white/20 transition-all duration-300 px-1 sm:px-2 w-full py-1 text-white font-light text-sm flex items-center justify-center text-nowrap rounded-[6px]`}
+          relative bg-[#fff] hover:bg-white/20 transition-all duration-300 px-1 sm:px-2 w-full py-1 text-black font-light text-sm flex items-center justify-center text-nowrap rounded-[6px]`}
                   >
-                    +{amount} SOL
+                    +{amount} trx
                   </button>
                 </div>
               ))}
             </div>
             <div className="flex gap-3 md:gap-5  mb-5">
               <div
-                className={`relative inline-block p-[2px] w-full rounded-[6px] bg-button-gradient-2`}
+                className={`relative inline-block p-[2px] w-full rounded-[6px] bg-button-gradient-custom2`}
               >
                 <button
                   onClick={handleReset}
-                  className="w-full bg-[#140e3c] hover:bg-white/20 transition-all duration-300 text-white py-2 px-4 rounded flex-1 font-medium text-[15px]"
+                  className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px]"
                 >
                   Reset
                 </button>
               </div>
               <div
-                className={`relative inline-block p-[2px] w-full bg-button-gradient-2 rounded-[6px] ${
+                className={`relative inline-block p-[2px] w-full bg-button-gradient-custom2 rounded-[6px] ${
                   solAmount === 0 ? "opacity-30" : ""
                 }`}
               >
@@ -86,7 +88,7 @@ export const Calculator = () => {
               </div>
             </div>
 
-            <div className="relative inline-block p-[2px] w-full rounded-[6px] bg-button-gradient-2">
+            <div className="relative inline-block p-[2px] w-full rounded-[6px] bg-button-gradient-custom2">
               <button
                 onClick={async () => {
                   await navigator.clipboard.writeText(
@@ -94,7 +96,7 @@ export const Calculator = () => {
                     `https://sol-adz.com/innovation?ref=${publicKey?.toBase58()}`
                   );
                 }}
-                className="w-full bg-[#140e3c] hover:bg-white/20 transition-all duration-300 text-white py-2 px-4 rounded flex-1 font-medium text-[15px]"
+                className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px]"
               >
                 Copy Referral Link
               </button>

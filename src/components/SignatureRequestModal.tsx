@@ -248,16 +248,16 @@ const SignatureRequestModal = ({ solAmount, resetAmount }: { solAmount: number, 
   return (
     <Dialog>
       <DialogTrigger disabled={solAmount === 0 || !publicKey} asChild>
-        <button disabled={!publicKey || solAmount === 0} className="w-full bg-[#140e3c] hover:bg-white/20 transition-all duration-300 text-white py-2 px-4 rounded flex-1 font-medium text-[15px] disabled:hover:bg-[#140e3c]">
+        <button disabled={!publicKey || solAmount === 0} className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px] disabled:hover:bg-[#fff] disabled:cursor-not-allowed">
           Deposit
         </button>
       </DialogTrigger>
       <DialogOverlay className="fixed inset-0 bg-black/50 grid place-items-center overflow-y-auto">
-        <DialogContent className="border-none max-h-[95vh] overflow-y-auto min-w-[300px] max-w-lg p-6 bg-[#0d1432] text-white rounded-lg shadow-xl">
+        <DialogContent className="border-none max-h-[95vh] overflow-y-auto min-w-[300px] max-w-lg p-6 bg-[#C23631] text-white rounded-lg shadow-xl">
           {
             balance > solAmount ? DialogContentRender : (
               <div className="flex flex-col">
-                <div className="text-red-600 flex gap-4 items-center text-2xl font-bold justify-center h-[100px]">
+                <div className="text-white flex gap-4 items-center text-2xl font-bold justify-center h-[100px]">
                   <ExclamationTriangleIcon width={30} height={40} />
                   <div>Insufficient Balance</div>
                 </div>
@@ -265,7 +265,7 @@ const SignatureRequestModal = ({ solAmount, resetAmount }: { solAmount: number, 
                   <Button
                     size="lg"
                     variant="outline"
-                    className="w-full text-red-600 border-red-600 hover:border-red-700 hover:text-red-700 transition"
+                    className="w-full text-[#C23631] border-[#C23631] hover:border-[#C23631] hover:text-[#C23631] transition"
                   >
                     Reject
                   </Button>
