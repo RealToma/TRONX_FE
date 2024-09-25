@@ -35,24 +35,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #12122b;
+  background: black;
   /* Darker background color for better contrast */
   /* border-radius: 12px; */
   /* Rounded corners for the track */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #70e9d5, #7a5fff);
+  background: linear-gradient(45deg, #000, #C23631);
   /* More vibrant gradient colors */
   border-radius: 6px;
   /* Rounded corners for the thumb */
-  border: 3px solid #12122b;
+  border: 2px solid black;
   /* Slightly thicker border around the thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
-  background: linear-gradient(45deg, #ffa4ff, #70e9d5);
+  background: linear-gradient(45deg, #C23631, #000);
   /* Brighter hover color */
 }
 
@@ -66,10 +66,18 @@ body {
 
 .text-stroke {
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -2px -2px 0 #C23631,
+    2px -2px 0 #C23631,
+    -2px 2px 0 #C23631,
+    2px 2px 0 #C23631;
+
+  @media (max-width: 600px) {
+    text-shadow:
+      -1px -1px 0 #C23631,
+      1px -1px 0 #C23631,
+      -1px 1px 0 #C23631,
+      1px 1px 0 #C23631;
+  }
 }
 
 
@@ -82,13 +90,11 @@ body {
 
   0%,
   100% {
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0, 0.3);
-    color: #a5e7f1;
+    color: #fff;
   }
 
   50% {
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0, 0.1);
-    color: blue;
+    color: black;
   }
 }
 

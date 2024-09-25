@@ -1,5 +1,5 @@
 import LinesRight from "../assets/lines-right.png";
-import BgLeft from "../assets/bg-left-1.png";
+import BgLeft from "../assets/bg-left.png";
 // import { useWallet } from "@solana/wallet-adapter-react";
 
 export const ContentSection = () => {
@@ -14,7 +14,7 @@ export const ContentSection = () => {
         />
         <div className="relative z-10 lg:ml-auto mr-[22vw] lg:mr-[18vw] max-w-[558px]">
           <h2 className="text-[30px] md:text-[40px] lg:text-[60px] poller font-bold mb-4">
-            SolAdz
+            Tron X
           </h2>
           <h3 className="max-w-[393px] text-[18px] md:text-[25px] lg:text-[30px] leading-[1.5] font-bold">
             Leading the Future of Project Advertisement & Investment

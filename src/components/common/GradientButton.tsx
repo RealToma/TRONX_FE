@@ -27,8 +27,8 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
         `}
       style={{
         background: isHovered
-          ? "linear-gradient(135deg, #a5e7f1, #866ffe)"
-          : "linear-gradient(135deg, #866ffe, #a5e7f1)",
+          ? "linear-gradient(135deg, #000, #C23631)"
+          : "linear-gradient(135deg, #C23631, #000)",
         backgroundSize: "200% 200%",
         animation: "gradientShift 5s ease infinite",
         boxShadow: isHovered
@@ -36,7 +36,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
           : "0 4px 6px rgba(0, 0, 0, 0.2)",
       }}
     >
-      <span className="relative z-10 text-[#a5e7f1] mix-blend-overlay  animate-pulse-blur">
+      <span className="relative z-10 text-[#fff] mix-blend-overlay  animate-pulse-blur">
         {text}
       </span>
       <span

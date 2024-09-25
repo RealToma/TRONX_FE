@@ -24,14 +24,14 @@ export const MainPage = () => {
         </div>
 
         <h1 className="mb-9 mt-8 text-[35px] sm:text-[45px] md:text-[60px] poller text-center font-bold leading-[1] text-stroke text-white">
-          Welcome to SolAdz
+          Welcome to Tron X
         </h1>
-        
-        <p className="text-center text-[24px] md:text-[30px] font-medium leading-[1] max-w-[644px] mx-auto">
+
+        <p className="text-center text-[24px] md:text-[30px] font-medium leading-[1] max-w-[644px] mx-auto text-black">
           The First Decentralized Advertising Network Community Fund
         </p>
 
-        <p className="text-center text-base md:text-[20px]  leading-[1.3] mt-4 mb-[30px] md:mb-[50px] max-w-[645px] mx-auto">
+        <p className="text-center text-base md:text-[20px]  leading-[1.3] mt-4 mb-[30px] md:mb-[50px] max-w-[645px] mx-auto text-black">
           By Contributing To The Community Fund, You Will Get High Targeted
           Traffic Through The Advertising Network
         </p>
