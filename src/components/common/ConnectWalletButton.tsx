@@ -16,11 +16,11 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   const { publicKey, disconnect } = useWallet();
   return (
     <div
-      className={`cursor-pointer text-center relative text-white text-sm bg-button-gradient connect-wallet ${className} p-[2px] rounded-[12px]`}
+      className={`cursor-pointer text-center relative text-black text-sm bg-button-gradient-custom1  connect-wallet ${className} p-[2px] rounded-[12px]`}
     >
-      {!!publicKey ? (
+      {publicKey ? (
         <Popover>
-          <PopoverButton className="block bg-[#6a7aff] px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
+          <PopoverButton className="block text-white  px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
             {text}
           </PopoverButton>
           <PopoverPanel
@@ -31,7 +31,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
             <div className="p-2">
               <button
                 onClick={disconnect}
-                className="block w-full px-3 sm:px-3 md:px-[12px] lg:px-20 text-white rounded-lg py-2 transition bg-[#ff6b6b] hover:bg-[#ff4c4c] shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                className="block w-full px-3 sm:px-3 md:px-[12px] lg:px-20 text-white rounded-lg py-2 transition bg-[#C23631] hover:bg-[#E23631] shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
                 Disconnect
               </button>
@@ -41,7 +41,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       ) : (
         <button
           onClick={onClick}
-          className="bg-[#6a7aff] px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300"
+          className="bg-[rgba(255,255,255)] text-black hover:text-white px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300"
         >
           {text || "CONNECT WALLET"}
         </button>

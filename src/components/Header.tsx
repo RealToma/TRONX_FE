@@ -37,7 +37,7 @@ export const Header = () => {
           <div className="hidden md:flex">
             {
               !!publicKey && (
-                <span className="text-white mr-4 uppercase">
+                <span className="text-black mr-4 uppercase">
                   {`MY Tron X RANK: ${rank} | BALANCE: ${!!balance ? balance.toFixed(3) : 0} SOL`}
                 </span>
               )
@@ -57,7 +57,7 @@ export const Header = () => {
       </header>
 
       <div className=" flex text-center md:hidden justify-center mt-6">
-        <span className="text-white text-xs mr-4">{rightText}</span>
+        <span className="text-black text-xs mr-4">{rightText}</span>
       </div>
     </div>
   );

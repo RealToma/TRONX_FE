@@ -81,6 +81,9 @@ body {
 }
 
 
+.bg-button-gradient-custom1 {
+  background-image: linear-gradient(to right, #C23631, #000);
+}
 
 .animate-pulse-blur {
   animation: pulse-blur 1s ease-in-out infinite;
