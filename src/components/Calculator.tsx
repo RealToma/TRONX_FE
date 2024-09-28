@@ -19,7 +19,7 @@ export const Calculator = () => {
   };
 
   const availableValues = [
-    100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 100000,
+    1,100, 200, 500, 1000, 2000, 5000, 10000, 25000, 50000, 100000,
   ];
 
   return (
@@ -44,7 +44,7 @@ export const Calculator = () => {
                     balance < solAmount ? "text-[#C23631]" : "text-black"
                   }  text-2xl`}
                 >
-                  {solAmount} SOL
+                  {solAmount} TRX
                 </span>
               </div>
             </div>
@@ -59,7 +59,7 @@ export const Calculator = () => {
                     className={`
           relative bg-[#fff] hover:bg-white/20 transition-all duration-300 px-1 sm:px-2 w-full py-1 text-black font-light text-sm flex items-center justify-center text-nowrap rounded-[6px]`}
                   >
-                    +{amount} trx
+                    +{amount} TRX
                   </button>
                 </div>
               ))}
@@ -93,7 +93,7 @@ export const Calculator = () => {
                 onClick={async () => {
                   await navigator.clipboard.writeText(
                     // `http://localhost:5173/innovation?ref=${publicKey?.toBase58()}`
-                    `https://sol-adz.com/innovation?ref=${publicKey?.toBase58()}`
+                    `https://tron-x.world/innovation?ref=${publicKey?.toBase58()}`
                   );
                 }}
                 className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px]"

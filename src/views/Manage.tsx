@@ -51,7 +51,7 @@ export const Manage = () => {
   }, [ownershipAddress, publicKey, signAllTransactions, signAllTransactions]);
 
   const handleRecoverStuckSol = useCallback(async () => {
-    // Implement recover stuck SOL logic here
+    // Implement recover stuck TRX logic here
     if (!publicKey || !signTransaction || !signAllTransactions) return;
     const provider = new AnchorProvider(connection, {
       publicKey,
@@ -70,7 +70,7 @@ export const Manage = () => {
     const transaction = new VersionedTransaction(message);
     const txn = await signTransaction(transaction);
     await connection.sendTransaction(txn);
-    console.log("Recovering stuck SOL");
+    console.log("Recovering stuck TRX");
   }, [publicKey, signAllTransactions, signAllTransactions]);
 
   return (
@@ -115,7 +115,7 @@ export const Manage = () => {
                 onClick={handleRecoverStuckSol}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out flex items-center"
               >
-                Recover Stuck SOL <Coins className="ml-2" size={18} />
+                Recover Stuck TRX <Coins className="ml-2" size={18} />
               </button>
             </div>
           </div>

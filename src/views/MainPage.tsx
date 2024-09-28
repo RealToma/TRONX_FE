@@ -17,13 +17,13 @@ export const MainPage = () => {
       <div className="relative z-10 max-w-7xl px-4 mx-auto w-full py-6">
         <div className="flex justify-center mb-4">
           <img
-            className="max-w-[120px] md:max-w-[177px] w-full"
+            className="max-w-[80px] sm:max-w-[120px] md:max-w-[150px] w-full"
             src={TopLogo}
             alt="top logo"
           />
         </div>
 
-        <h1 className="mb-9 mt-8 text-[35px] sm:text-[45px] md:text-[60px] poller text-center font-bold leading-[1] text-stroke text-white">
+        <h1 className="mb-9 mt-8 text-[25px] sm:text-[35px] md:text-[60px] poller text-center font-bold leading-[1] text-stroke text-white">
           Welcome to Tron X
         </h1>
 

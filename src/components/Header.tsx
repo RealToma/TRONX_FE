@@ -9,7 +9,7 @@ import { useContext, useEffect } from "react";
 import { BalanceContext } from "./contexts/useBalance";
 
 export const Header = () => {
-  const rightText = "MY INVESET RANK : STARTER" + '\u00a0' + '\u00a0' + '\u00a0' + "|" + '\u00a0' + '\u00a0' + '\u00a0' + "MY SOL :";
+  const rightText = "MY INVESET RANK : STARTER" + '\u00a0' + '\u00a0' + '\u00a0' + "|" + '\u00a0' + '\u00a0' + '\u00a0' + "MY TRX :";
   const { setVisible } = useWalletModal();
   const { publicKey } = useWallet();
   const { balance, getBalance, getRank, rank } = useContext(BalanceContext);
@@ -38,7 +38,7 @@ export const Header = () => {
             {
               !!publicKey && (
                 <span className="text-black mr-4 uppercase">
-                  {`MY Tron X RANK: ${rank} | BALANCE: ${!!balance ? balance.toFixed(3) : 0} SOL`}
+                  {`MY Tron X RANK: ${rank} | BALANCE: ${!!balance ? balance.toFixed(3) : 0} TRX`}
                 </span>
               )
             }
