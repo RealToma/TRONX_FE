@@ -6,21 +6,10 @@ import { Button } from "@/components/ui/button";
 import { DialogClose, DialogOverlay } from "@radix-ui/react-dialog";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
-import { useWallet } from "@solana/wallet-adapter-react";
-import IDL from "../idl/soladz.json";
-import { AnchorProvider, BN, Idl, Program, utils } from "@coral-xyz/anchor";
-import {
-  LAMPORTS_PER_SOL,
-  TransactionMessage,
-  VersionedTransaction,
-  PublicKey,
-} from "@solana/web3.js";
 import moment from "moment";
 import { BalanceContext } from "./contexts/useBalance";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useSearchParams } from "react-router-dom";
-import { userService } from "@/services/api.service";
-import { connection } from "@/lib/utils";
 
 const TransactionItem = ({
   leftVal,
@@ -48,7 +37,6 @@ const SignatureRequestModal = ({
   const [txHash, setTxHash] = useState("");
 
   // const { connection } = useConnection();
-  const { publicKey, signAllTransactions, signTransaction } = useWallet();
   const [spentAmount, setSpentAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,85 +45,9 @@ const SignatureRequestModal = ({
   const [searchParams] = useSearchParams();
 
   const handleTransaction = useCallback(async () => {
-    try {
-      if (!publicKey || !signTransaction || !signAllTransactions) return;
-      setIsLoading(true);
-      const provider = new AnchorProvider(connection, {
-        publicKey,
-        signTransaction,
-        signAllTransactions,
-      });
-      const program = new Program(IDL as Idl, provider);
-      const ref = searchParams.get("ref");
-      const instructions = [];
-      const investorAccount = PublicKey.findProgramAddressSync(
-        [utils.bytes.utf8.encode("investor"), publicKey.toBuffer()],
-        program.programId
-      )[0];
-      let isNew = false;
-      let referrer: PublicKey | null = null;
-      try {
-        // @ts-ignore
-        await program.account.investor.fetch(investorAccount);
-      } catch (e) {
-        isNew = true;
-      }
-      if (!!ref && isNew) {
-        referrer = new PublicKey(ref);
-        const ixn = await program.methods
-          .initInvestorWithRef(new BN(solAmount * LAMPORTS_PER_SOL))
-          .accounts({
-            referrer,
-          })
-          .instruction();
-        instructions.push(ixn);
-      } else {
-        const ixn = await program.methods
-          .invest(new BN(solAmount * LAMPORTS_PER_SOL))
-          .accounts({
-            referrer: publicKey,
-          })
-          .instruction();
-        instructions.push(ixn);
-      }
-      const { blockhash } = await connection.getLatestBlockhash();
-      const message = new TransactionMessage({
-        payerKey: publicKey,
-        recentBlockhash: blockhash,
-        instructions,
-      }).compileToV0Message();
-      const transaction = new VersionedTransaction(message);
-      const txn = await signTransaction(transaction);
-      const sign = await connection.sendTransaction(txn);
-      setTxHash(sign);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      if (!!referrer) {
-        await userService.create({
-          address: publicKey.toBase58(),
-          account: investorAccount.toBase58(),
-          referrer: referrer.toBase58(),
-          amount: Number(solAmount),
-        });
-      } else {
-        await userService.create({
-          address: publicKey.toBase58(),
-          account: investorAccount.toBase58(),
-          amount: Number(solAmount),
-        });
-      }
-
-      setTransactionSuccess(true);
-      setSpentAmount(solAmount);
-      resetAmount();
-      getBalance();
-      getRank();
-      setIsLoading(false);
-    } catch (e) {
-      console.log(e);
-      setIsLoading(false);
-    }
-  }, [publicKey, signAllTransactions, signAllTransactions, solAmount]);
+   
+     
+  }, [solAmount]);
 
   const DialogContentRender = (
     <div>
@@ -155,19 +67,14 @@ const SignatureRequestModal = ({
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center font-medium text-black">
                 ME
               </div>
-              <div className="text-sm mt-2 text-center">{`${publicKey
-                ?.toBase58()
-                .slice(0, 4)}...${publicKey?.toBase58().slice(-4)}`}</div>
+              <div className="text-sm mt-2 text-center">{``}</div>
               {/* <div className="text-xs text-gray-500">500 TRX</div> */}
             </div>
             <div className="flex flex-col items-center">
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center font-medium text-black">
                 SC
               </div>
-              <div className="text-sm mt-2 text-center">{`${IDL.address.slice(
-                0,
-                4
-              )}...${IDL.address.slice(-4)}`}</div>
+              <div className="text-sm mt-2 text-center">{}</div>
             </div>
           </div>
           <div className="space-y-4 border-t border-gray-200 pt-4 mb-6">
@@ -175,9 +82,7 @@ const SignatureRequestModal = ({
             <TransactionItem leftVal="Network" rightVal="Mainnet" />
             <TransactionItem
               leftVal="Contract"
-              rightVal={`${IDL.address.slice(0, 12)}...${IDL.address.slice(
-                -12
-              )}`}
+              rightVal={''}
             />
             <TransactionItem leftVal="Function" rightVal="invest(uint256)" />
           </div>
@@ -240,7 +145,7 @@ const SignatureRequestModal = ({
             <div className="space-y-4 text-left ">
               <div>
                 <span className="font-medium">Transfer account</span>
-                <div>{publicKey?.toBase58()}</div>
+                <div>{}</div>
               </div>
               {/* <div>
                       <span className="font-medium">Receiving account</span>
@@ -282,9 +187,9 @@ const SignatureRequestModal = ({
 
   return (
     <Dialog>
-      <DialogTrigger disabled={solAmount === 0 || !publicKey} asChild>
+      <DialogTrigger disabled={solAmount === 0 } asChild>
         <button
-          disabled={!publicKey || solAmount === 0}
+          disabled={solAmount === 0}
           className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px] disabled:hover:bg-[#fff] disabled:cursor-not-allowed"
         >
           Deposit

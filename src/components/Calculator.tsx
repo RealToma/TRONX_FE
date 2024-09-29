@@ -2,13 +2,11 @@ import { useContext, useState } from "react";
 import SignatureRequestModal from "./SignatureRequestModal";
 import CalculatorBg from "../assets/calculator-bg.png";
 import { BalanceContext } from "./contexts/useBalance";
-import { useWallet } from "@solana/wallet-adapter-react";
 
 export const Calculator = () => {
   const [solAmount, setSolAmount] = useState(0);
 
   const { balance } = useContext(BalanceContext);
-  const { publicKey } = useWallet();
 
   const handleAmountClick = (amount: number) => {
     setSolAmount((prevVal) => +(amount + prevVal).toFixed(2));
@@ -93,7 +91,7 @@ export const Calculator = () => {
                 onClick={async () => {
                   await navigator.clipboard.writeText(
                     // `http://localhost:5173/innovation?ref=${publicKey?.toBase58()}`
-                    `https://tron-x.world/innovation?ref=${publicKey?.toBase58()}`
+                    `https://tron-x.world/innovation?ref=${1}`
                   );
                 }}
                 className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px]"

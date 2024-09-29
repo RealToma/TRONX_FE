@@ -2,76 +2,20 @@ import { useCallback, useState } from "react";
 import MainBg from "../assets/solAdz-bg.png";
 import { Header } from "@/components/Header";
 import { ArrowRight, Coins } from "lucide-react";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { AnchorProvider, Idl, Program } from "@coral-xyz/anchor";
-import IDL from "../idl/soladz.json";
-import {
-  TransactionMessage,
-  VersionedTransaction,
-  PublicKey,
-} from "@solana/web3.js";
-import { connection } from "@/lib/utils";
 
 export const Manage = () => {
   const [ownershipAddress, setOwnershipAddress] = useState("");
 
   // const { connection } = useConnection();
-  const { publicKey, signAllTransactions, signTransaction } = useWallet();
+
 
   const handleTransferOwnership = useCallback(async () => {
     // Implement transfer ownership logic here
-    try {
-      if (!publicKey || !signTransaction || !signAllTransactions) return;
-      const provider = new AnchorProvider(connection, {
-        publicKey,
-        signTransaction,
-        signAllTransactions,
-      });
-      const program = new Program(IDL as Idl, provider);
-      const ixn = await program.methods
-        .transferOwnership()
-        .accounts({
-          newOwner: new PublicKey(ownershipAddress),
-        })
-        .instruction();
-      const instructions = [ixn];
-      const { blockhash } = await connection.getLatestBlockhash();
-      const message = new TransactionMessage({
-        payerKey: publicKey,
-        recentBlockhash: blockhash,
-        instructions,
-      }).compileToV0Message();
-      const transaction = new VersionedTransaction(message);
-      const txn = await signTransaction(transaction);
-      await connection.sendTransaction(txn);
-      console.log("Transferring ownership to:", ownershipAddress);
-    } catch (e) {
-      console.log(e);
-    }
-  }, [ownershipAddress, publicKey, signAllTransactions, signAllTransactions]);
+  }, [ownershipAddress]);
 
   const handleRecoverStuckSol = useCallback(async () => {
-    // Implement recover stuck TRX logic here
-    if (!publicKey || !signTransaction || !signAllTransactions) return;
-    const provider = new AnchorProvider(connection, {
-      publicKey,
-      signTransaction,
-      signAllTransactions,
-    });
-    const program = new Program(IDL as Idl, provider);
-    const ixn = await program.methods.ownerWithdraw().instruction();
-    const instructions = [ixn];
-    const { blockhash } = await connection.getLatestBlockhash();
-    const message = new TransactionMessage({
-      payerKey: publicKey,
-      recentBlockhash: blockhash,
-      instructions,
-    }).compileToV0Message();
-    const transaction = new VersionedTransaction(message);
-    const txn = await signTransaction(transaction);
-    await connection.sendTransaction(txn);
-    console.log("Recovering stuck TRX");
-  }, [publicKey, signAllTransactions, signAllTransactions]);
+    
+  }, []);
 
   return (
     <div className="min-h-screen pb-12 relative h-full overflow-x-hidden">

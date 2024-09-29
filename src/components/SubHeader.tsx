@@ -1,6 +1,6 @@
 import VerticalDash from "../assets/vertical-dash.svg";
 import GetStartedToday from "../assets/get-started-today.svg";
-import { NotificationManager } from "react-notifications";
+// import { NotificationManager } from "react-notifications";
 
 const heroLinks = [
   {
@@ -36,7 +36,7 @@ export const SubHeader = () => {
                 key={val.id}
                 className="flex items-center gap-3"
                 onClick={() => {
-                  NotificationManager.info("Coming soon.", "", 3000);
+                  // NotificationManager.info("Coming soon.", "", 3000);
                   return;
                 }}
               >

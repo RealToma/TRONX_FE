@@ -1,11 +1,7 @@
 // import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { AnchorProvider, Idl, Program, utils } from "@coral-xyz/anchor";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useCallback, useContext, useEffect, useState } from "react";
 // import { Button } from "@/components/ui/button";
-import IDL from '../idl/soladz.json';
-import { PublicKey, LAMPORTS_PER_SOL, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { BalanceContext } from "./contexts/useBalance";
 import { userService } from "@/services/api.service";
 import { calculateTimeLeft } from "@/utils/time.utils";
@@ -26,59 +22,11 @@ export const BottomStats = () => {
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [user, setUser] = useState<User>();
 
-  const { publicKey, signAllTransactions, signTransaction } = useWallet();
   // const { connection } = useConnection();
 
   const getReward = useCallback(async () => {
-    try {
-      if (!publicKey || !signTransaction || !signAllTransactions) return;
-      const provider = new AnchorProvider(connection, { publicKey, signTransaction, signAllTransactions });
-      const program = new Program(IDL as Idl, provider);
-      const vault = PublicKey.findProgramAddressSync(
-        [
-          utils.bytes.utf8.encode("vault")
-        ],
-        program.programId
-      )[0];
-      const vol = await connection.getBalance(vault);
-      setVolume(Number(vol) / LAMPORTS_PER_SOL);
-      const appStats = PublicKey.findProgramAddressSync(
-        [
-          utils.bytes.utf8.encode("app-stats")
-        ],
-        program.programId
-      )[0];
-      // @ts-ignore
-      const appStatsAccount = await program.account.appStats.fetch(appStats);
-      setInvestorCount(Number(appStatsAccount.investorCount));
-      setTopSponsorPool(Number(appStatsAccount.topSponserPool) / LAMPORTS_PER_SOL);
-      setWhalePool(Number(appStatsAccount.whalePool) / LAMPORTS_PER_SOL);
-      const investorAccount = PublicKey.findProgramAddressSync(
-        [
-          utils.bytes.utf8.encode("investor"),
-          publicKey.toBuffer()
-        ],
-        program.programId
-      )[0];
-      // @ts-ignore
-      const investor = await program.account.investor.fetch(investorAccount);
-      setWithdrawAmount(Number(investor.totalEarned) / LAMPORTS_PER_SOL);
-      setLastClaim(Number(investor.lastUpdate));
-      const res = await program.methods.rewardView().accounts({
-        investorAccount
-      }).view();
-      setReward(Number(res) / LAMPORTS_PER_SOL);
-      const bonus = await userService.getMatchingBonsu(publicKey.toBase58());
-      setMatchingbonus(bonus)
-      getRank();
-      const commssionReward = await userService.getCommission(publicKey.toBase58());
-      const userinfo: User = await userService.getUserInfo(publicKey.toBase58());
-      setUser(userinfo);
-      setCommission(commssionReward);
-    } catch (e) {
-      console.log(e)
-    }
-  }, [publicKey, signTransaction, signAllTransactions])
+    
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(async () => {
@@ -87,7 +35,7 @@ export const BottomStats = () => {
     return () => {
       clearInterval(timer);
     }
-  }, [publicKey, signTransaction, signAllTransactions]);
+  }, []);
 
   useEffect(() => {
     if (!lastClaim) return;
@@ -105,28 +53,8 @@ export const BottomStats = () => {
   }, [lastClaim])
 
   const withdraw = useCallback(async () => {
-    if (!publicKey || !signTransaction || !signAllTransactions) return;
-    const provider = new AnchorProvider(connection, { publicKey, signTransaction, signAllTransactions });
-    const program = new Program(IDL as Idl, provider);
-    const ixn = await program.methods.claim().instruction();
-    const instructions = [ixn];
-    const { blockhash } = await connection.getLatestBlockhash();
-    const message = new TransactionMessage({
-      payerKey: publicKey,
-      recentBlockhash: blockhash,
-      instructions
-    }).compileToV0Message();
-    const transaction = new VersionedTransaction(message);
-    const txn = await signTransaction(transaction);
-    await connection.sendTransaction(txn);
-    // withdraw commission
-    const serialzedBuff = await userService.getCommissionTxn(publicKey.toBase58());
-    const txnBuf = Buffer.from(serialzedBuff, 'base64');
-    const sendTxn = VersionedTransaction.deserialize(txnBuf);
-    const signed = await signTransaction(sendTxn);
-    await connection.sendTransaction(signed);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-  }, [publicKey, signTransaction, signAllTransactions]);
+    
+  }, []);
 
   return (
     <div className="px-4 mt-12">
@@ -142,7 +70,7 @@ export const BottomStats = () => {
               <div className="text-sm">
                 CA
               </div>
-              <div className="text-sm ">{window.innerWidth<700?`${IDL.address.slice(0, 8)}...${IDL.address.slice(-8)}`:IDL.address}</div>
+              <div className="text-sm ">{}</div>
             </div>
             <div
               className={`cursor-pointer border-white/20 border-b py-4 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -150,7 +78,7 @@ export const BottomStats = () => {
               <div className="text-sm">
                 Total users
               </div>
-              <div className="text-sm ">{publicKey ? `${investorCount}` : '-'}</div>
+              <div className="text-sm ">{}</div>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -158,7 +86,7 @@ export const BottomStats = () => {
               <div className="text-sm">
                 Total deposited
               </div>
-              <div className="text-sm ">{publicKey ? `${volume.toFixed(4)} TRX` : '-'}</div>
+              <div className="text-sm ">{}</div>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -166,7 +94,7 @@ export const BottomStats = () => {
               <div className="text-sm">
                 Top sponsor pool
               </div>
-              <div className="text-sm ">{publicKey ? `${topSponsorPool.toFixed(4)} TRX` : '-'}</div>
+              <div className="text-sm ">{}</div>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -174,7 +102,7 @@ export const BottomStats = () => {
               <div className="text-sm">
                 Whale pool
               </div>
-              <div className="text-sm ">{publicKey ? `${whalePool.toFixed(4)} TRX` : '-'}</div>
+              <div className="text-sm ">{}</div>
             </div>
           </CardContent>
         </Card>
@@ -191,7 +119,7 @@ export const BottomStats = () => {
                 <p className="text-md">Next income</p>
                 <p className="text-sm">countdown</p>
               </div>
-              <p className="text-sm">{(!!timeLeft && !!publicKey) ? `${timeLeft?.hours}:${timeLeft?.mins}:${timeLeft?.sec}` : '--:--:--'}</p>
+              <p className="text-sm">{(!!timeLeft) ? `${timeLeft?.hours}:${timeLeft?.mins}:${timeLeft?.sec}` : '--:--:--'}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -200,7 +128,7 @@ export const BottomStats = () => {
                 <p className="text-md">300% income limit</p>
                 <p className="text-sm">remains</p>
               </div>
-              <p className="text-sm">{ publicKey ? `${(depositAmount * 3).toFixed(4) } TRX` : '-'}</p>
+              <p className="text-sm">{ }</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -208,7 +136,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Daily income 1%</p>
               </div>
-              <p className="text-sm">{publicKey ? `${reward} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -216,7 +144,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Direct referral income</p>
               </div>
-              <p className="text-sm">{publicKey ? `${commission} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -224,7 +152,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Matching bonus</p>
               </div>
-              <p className="text-sm">{publicKey ? `${matchingBonus} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -232,7 +160,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Top sponsor pool reward</p>
               </div>
-              <p className="text-sm">{publicKey ? `${user ? user?.topSponsorReward : 0} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -240,7 +168,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Whale pool reward</p>
               </div>
-              <p className="text-sm">{publicKey ? `${user ? user?.whalePoolReward : 0} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`cursor-pointer border-b py-4 border-white/20 flex justify-between items-center hover:bg-white/10 px-4`}
@@ -248,7 +176,7 @@ export const BottomStats = () => {
               <div className="">
                 <p className="text-sm">Income withdrawn to wallet</p>
               </div>
-              <p className="text-sm">{publicKey ? `${withdrawAmount} TRX` : '-'}</p>
+              <p className="text-sm">{}</p>
             </div>
             <div
               className={`mt-8  relative inline-block p-[2px] w-full rounded-[6px] bg-button-gradient-custom2`}

@@ -1,24 +1,20 @@
 import { ConnectWalletButton } from "./common/ConnectWalletButton";
 import TopLogoText from "../assets/logoText.png";
 import { Link } from "react-router-dom";
-import {
-  useWalletModal,
-} from "@solana/wallet-adapter-react-ui";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect } from "react";
 import { BalanceContext } from "./contexts/useBalance";
+import { useWalletModal, WalletModalContext } from "@tronweb3/tronwallet-adapter-react-ui";
 
 export const Header = () => {
   const rightText = "MY INVESET RANK : STARTER" + '\u00a0' + '\u00a0' + '\u00a0' + "|" + '\u00a0' + '\u00a0' + '\u00a0' + "MY TRX :";
-  const { setVisible } = useWalletModal();
-  const { publicKey } = useWallet();
   const { balance, getBalance, getRank, rank } = useContext(BalanceContext);
+
+  const { setVisible } = useWalletModal();
 
   useEffect(() => {
     getBalance();
     getRank();
-  }, [publicKey]);
-
+  }, []);
   return (
     <div>
       <header className="flex gap-1 justify-between items-center mt-12">
@@ -35,22 +31,16 @@ export const Header = () => {
 
         <div className="flex items-center text-xs lg:text-sm">
           <div className="hidden md:flex">
-            {
-              !!publicKey && (
+           
                 <span className="text-black mr-4 uppercase">
                   {`MY Tron X RANK: ${rank} | BALANCE: ${!!balance ? balance.toFixed(3) : 0} TRX`}
                 </span>
-              )
-            }
+            
           </div>
           <ConnectWalletButton
-            onClick={() => setVisible(true)}
+            onClick={()=>setVisible(true)}
             text={
-              !!publicKey
-                ? `${publicKey.toBase58().slice(0, 4)}...${publicKey
-                  .toBase58()
-                  .slice(-4)}`
-                : "connect wallet"
+              "connect wallet"
             }
           />
         </div>
