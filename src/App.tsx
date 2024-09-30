@@ -23,6 +23,8 @@ import { TronLinkAdapter, TokenPocketAdapter, BitKeepAdapter, OkxWalletAdapter }
 import { WalletConnectAdapter } from '@tronweb3/tronwallet-adapter-walletconnect';
 import { LedgerAdapter } from '@tronweb3/tronwallet-adapter-ledger';
 
+import '@tronweb3/tronwallet-adapter-react-ui/style.css';
+
 
 
 const router = createBrowserRouter([
@@ -68,7 +70,7 @@ function App() {
         // },
       },
       web3ModalConfig: {
-        themeMode: 'dark',
+        themeMode: 'light',
         themeVariables: {
           '--wcm-z-index': '1000'
         },

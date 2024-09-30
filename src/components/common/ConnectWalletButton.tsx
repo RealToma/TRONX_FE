@@ -21,7 +21,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       {!!address ? (
         <Popover>
           <PopoverButton className="block text-white  px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
-            {text}
+            {address.toString()}
           </PopoverButton>
           <PopoverPanel
             transition

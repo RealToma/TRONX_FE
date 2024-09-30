@@ -3,7 +3,7 @@ import TopLogoText from "../assets/logoText.png";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { BalanceContext } from "./contexts/useBalance";
-import { useWalletModal, WalletModalContext } from "@tronweb3/tronwallet-adapter-react-ui";
+import { useWalletModal } from "@tronweb3/tronwallet-adapter-react-ui";
 
 export const Header = () => {
   const rightText = "MY INVESET RANK : STARTER" + '\u00a0' + '\u00a0' + '\u00a0' + "|" + '\u00a0' + '\u00a0' + '\u00a0' + "MY TRX :";
