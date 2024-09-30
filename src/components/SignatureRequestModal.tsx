@@ -10,6 +10,8 @@ import moment from "moment";
 import { BalanceContext } from "./contexts/useBalance";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useSearchParams } from "react-router-dom";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+
 
 const TransactionItem = ({
   leftVal,
@@ -44,10 +46,15 @@ const SignatureRequestModal = ({
 
   const [searchParams] = useSearchParams();
 
+  const { signMessage, signTransaction } = useWallet();
+
   const handleTransaction = useCallback(async () => {
-   
-     
-  }, [solAmount]);
+    try {
+      
+    } catch (e) {
+      console.log(e);
+    } 
+  }, [solAmount, signMessage, signTransaction]);
 
   const DialogContentRender = (
     <div>

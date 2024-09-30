@@ -25,6 +25,7 @@
     "@types/react-lottie": "^1.2.10",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.7",
+    "bignumber.js": "^9.1.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lottie-react": "^2.4.0",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/bignumber.js": "^5.0.0",
     "@types/moment": "^2.11.29",
     "@types/node": "^22.5.2",
     "@types/react": "^18.3.3",
