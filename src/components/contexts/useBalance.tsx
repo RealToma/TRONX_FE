@@ -23,7 +23,7 @@ export const BalanceContextProvider = ({ children }: { children: React.ReactNode
     const getBalance = useCallback(async () => {
         if(!address) return;
         const bal = await tronWeb.trx.getBalance(address);
-        setBalance(bal / 1000000)
+        setBalance(bal / 1_000_000);
     }, [address])
 
     const getRank = useCallback(async () => {

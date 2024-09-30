@@ -4,17 +4,19 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { BalanceContext } from "./contexts/useBalance";
 import { useWalletModal } from "@tronweb3/tronwallet-adapter-react-ui";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 
 export const Header = () => {
   const rightText = "MY INVESET RANK : STARTER" + '\u00a0' + '\u00a0' + '\u00a0' + "|" + '\u00a0' + '\u00a0' + '\u00a0' + "MY TRX :";
   const { balance, getBalance, getRank, rank } = useContext(BalanceContext);
 
   const { setVisible } = useWalletModal();
+  const { address } = useWallet();
 
   useEffect(() => {
     getBalance();
     getRank();
-  }, []);
+  }, [address]);
   return (
     <div>
       <header className="flex gap-1 justify-between items-center mt-12">
@@ -31,14 +33,16 @@ export const Header = () => {
 
         <div className="flex items-center text-xs lg:text-sm">
           <div className="hidden md:flex">
-           
+            {
+              !!address && (
                 <span className="text-black mr-4 uppercase">
                   {`MY Tron X RANK: ${rank} | BALANCE: ${!!balance ? balance.toFixed(3) : 0} TRX`}
                 </span>
-            
+              )
+            }
           </div>
           <ConnectWalletButton
-            onClick={()=>setVisible(true)}
+            onClick={() => setVisible(true)}
             text={
               "connect wallet"
             }
