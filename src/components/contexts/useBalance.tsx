@@ -1,4 +1,6 @@
 
+import { tronWeb } from "@/tronweb";
+import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { createContext, useCallback, useState } from "react";
 
 export interface BalanceContextProps {
@@ -16,12 +18,13 @@ export const BalanceContextProvider = ({ children }: { children: React.ReactNode
     const [rank, setRank] = useState('starter');
     const [depositAmount, setDepositAmount] = useState(0);
 
+    const { address } = useWallet();
 
-    // const { connection } = useConnection();
-
-    const getBalance = async () => {
-        
-    }
+    const getBalance = useCallback(async () => {
+        if(!address) return;
+        const bal = await tronWeb.trx.getBalance(address);
+        setBalance(bal / 1000000)
+    }, [address])
 
     const getRank = useCallback(async () => {
        

@@ -13,7 +13,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   onClick,
   className = "",
 }) => {
-  const { address } = useWallet();
+  const { address, disconnect } = useWallet();
   return (
     <div
       className={`cursor-pointer text-center relative text-black text-sm bg-button-gradient-custom1  connect-wallet ${className} p-[2px] rounded-[12px]`}
@@ -21,7 +21,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       {!!address ? (
         <Popover>
           <PopoverButton className="block text-white  px-3 sm:px-3 md:px-[12px] rounded-[12px] lg:px-20 py-[10px] hover:bg-white/20 transition-all duration-300 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
-            {address.toString()}
+            {`${address.slice(0, 5)}...${address.slice(-5)}`}
           </PopoverButton>
           <PopoverPanel
             transition
@@ -30,6 +30,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
           >
             <div className="p-2">
               <button
+                onClick={()=>disconnect()}
                 className="block w-full px-3 sm:px-3 md:px-[12px] lg:px-20 text-white rounded-lg py-2 transition bg-[#C23631] hover:bg-[#923631] shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
                 Disconnect

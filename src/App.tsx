@@ -120,7 +120,7 @@ function App() {
     console.log('onAccountsChanged')
   }
   async function onAdapterChanged(adapter: Adapter | null) {
-    console.log('onAdapterChanged', adapter)
+    // console.log('onAdapterChanged', adapter)
   }
 
 
