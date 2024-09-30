@@ -57,7 +57,7 @@ export const BottomStats = () => {
   }, []);
 
   return (
-    <div className="px-4 mt-12">
+    <div className="px-4 mt-12 pb-20">
       <div className="flex flex-col gap-4 lg:flex-row p-4 md:p-6 max-w-[1200px] border border-dashed rounded-lg border-[#C23631] mx-auto">
         <Card className="w-full py-4 md:py-8 px-2 md:px-4 lg:px-6 bg-gradient-to-b from-red-800 to-black  text-white border-none">
           <CardHeader>

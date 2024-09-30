@@ -1,22 +1,22 @@
 import VerticalDash from "../assets/vertical-dash.svg";
 import GetStartedToday from "../assets/get-started-today.svg";
-// import { NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 
 const heroLinks = [
   {
     id: 1,
     title: "Tutorial",
-    href: "https://www.youtube.com/@Sol_Adz/videos",
+    href: "https://www.youtube.com/@Tronx_world",
   },
   {
     id: 2,
     title: "Marketing Material",
-    href: "#",
+    href: "https://drive.google.com/drive/folders/1qZpy6dEjAN42tj9SYxhHuyLCIuxeFQdg?usp=sharing",
   },
   {
     id: 3,
     title: "Socials",
-    href: "https://www.instagram.com/sol_adz",
+    href: "https://www.instagram.com/tronx.world",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ export const SubHeader = () => {
                 key={val.id}
                 className="flex items-center gap-3"
                 onClick={() => {
-                  // NotificationManager.info("Coming soon.", "", 3000);
+                  NotificationManager.error("Coming soon.", "", 3000);
                   return;
                 }}
               >

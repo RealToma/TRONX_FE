@@ -24,6 +24,7 @@ import { WalletConnectAdapter } from '@tronweb3/tronwallet-adapter-walletconnect
 import { LedgerAdapter } from '@tronweb3/tronwallet-adapter-ledger';
 
 import '@tronweb3/tronwallet-adapter-react-ui/style.css';
+import { NotificationContainer } from "react-notifications";
 
 
 
@@ -150,6 +151,7 @@ function App() {
                 />
               </div>
             </div>
+            <NotificationContainer />
             <RouterProvider router={router} />
           </BalanceContextProvider>
         </WalletModalProvider>
