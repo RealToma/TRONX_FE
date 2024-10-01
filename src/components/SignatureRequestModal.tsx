@@ -11,8 +11,7 @@ import { BalanceContext } from "./contexts/useBalance";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useSearchParams } from "react-router-dom";
 import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
-import { ca, tronweb } from "@/utils/tronweb.utils";
-import TronAdz from '@/contracts/Tronadz.sol/Tronadz.json';
+import { ca, issure, tronWeb } from "@/utils/tronweb.utils";
 
 
 
@@ -33,7 +32,6 @@ const TransactionItem = ({
 
 const SignatureRequestModal = ({
   solAmount,
-  resetAmount,
 }: {
   solAmount: number;
   resetAmount: () => void;
@@ -44,7 +42,7 @@ const SignatureRequestModal = ({
   const [spentAmount, setSpentAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { getBalance, getRank, balance } = useContext(BalanceContext);
+  const { getBalance, balance } = useContext(BalanceContext);
 
   const [searchParams] = useSearchParams();
 
@@ -52,27 +50,28 @@ const SignatureRequestModal = ({
 
   const handleTransaction = useCallback(async () => {
     try {
+      setTransactionSuccess(true);
       if (!address) return;
       const ref = searchParams.get('ref');
-      const amountInSun = tronweb.toSun(solAmount);
-      tronweb.setAddress(address);
-      const txn = await tronweb.transactionBuilder.triggerSmartContract(
+      const amountInSun = tronWeb.toSun(solAmount);
+      const txn = await tronWeb.transactionBuilder.triggerSmartContract(
         ca,
         'registerUser',
         {
-          feeLimit: 100_000_000,
           callValue: Number(amountInSun)
         },
         [
           {type: 'uint256', value: !!ref ? ref : 1}
-        ]
+        ],
+        issure
       );
       // @ts-ignore
       const signedTx = await signTransaction(txn.transaction);
       // @ts-ignore
-      const result = await tronweb.trx.sendRawTransaction(signedTx);
+      const result = await tronWeb.trx.sendRawTransaction(signedTx);
       console.log(result)
-      getBalance();
+      setTransactionSuccess(true);
+      getBalance()
     } catch (e) {
       console.log(e);
     }

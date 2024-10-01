@@ -1,4 +1,4 @@
-import { tronweb } from "@/utils/tronweb.utils";
+import { tronWeb } from "@/utils/tronweb.utils";
 import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
 import { createContext, useCallback, useState } from "react";
 
@@ -21,7 +21,7 @@ export const BalanceContextProvider = ({ children }: { children: React.ReactNode
 
     const getBalance = useCallback(async () => {
         if(!address) return;
-        const bal = await tronweb.trx.getBalance(address);
+        const bal = await tronWeb.trx.getBalance(address);
         setBalance(bal / 1_000_000);
     }, [address])
 
