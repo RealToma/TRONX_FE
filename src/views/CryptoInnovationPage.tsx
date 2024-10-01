@@ -5,10 +5,11 @@ import { Header } from "@/components/Header";
 import { Calculator } from "@/components/Calculator";
 import { SubHeader } from "@/components/SubHeader";
 import { ContentSection } from "@/components/ContentSection";
+import { Contact } from "@/components/contact";
 
 export const CryptoInnovationPage = () => {
   return (
-    <div className="min-h-screen pb-12 relative h-full overflow-x-hidden">
+    <div className="min-h-screen relative h-full overflow-x-hidden">
       <img className="absolute top-0 left-0 w-full h-full object-fill" src={MainBg} alt="Bg Hero" />
 
       <div className="relative z-10">
@@ -25,6 +26,7 @@ export const CryptoInnovationPage = () => {
         <Calculator />
         {/*  bottom stats */}
         <BottomStats />
+        <Contact />
       </div>
     </div>
   );

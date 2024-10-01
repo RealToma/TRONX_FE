@@ -128,6 +128,12 @@ body {
   opacity: 1 !important;
 }
 
+
+.notification-error {
+  background-color: #C23631 !important;
+  color: white !important;
+}
+
 .notification-info {
   background-color: #1975ff !important;
   color: white !important;
