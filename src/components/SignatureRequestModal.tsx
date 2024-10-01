@@ -11,6 +11,9 @@ import { BalanceContext } from "./contexts/useBalance";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { useSearchParams } from "react-router-dom";
 import { useWallet } from "@tronweb3/tronwallet-adapter-react-hooks";
+import { ca, tronweb } from "@/utils/tronweb.utils";
+import TronAdz from '@/contracts/Tronadz.sol/Tronadz.json';
+
 
 
 const TransactionItem = ({
@@ -38,7 +41,6 @@ const SignatureRequestModal = ({
   const [transactionSuccess, setTransactionSuccess] = useState(false);
   const [txHash, setTxHash] = useState("");
 
-  // const { connection } = useConnection();
   const [spentAmount, setSpentAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,15 +48,35 @@ const SignatureRequestModal = ({
 
   const [searchParams] = useSearchParams();
 
-  const { signMessage, signTransaction } = useWallet();
+  const { address, signTransaction } = useWallet();
 
   const handleTransaction = useCallback(async () => {
     try {
-      
+      if (!address) return;
+      const ref = searchParams.get('ref');
+      const amountInSun = tronweb.toSun(solAmount);
+      tronweb.setAddress(address);
+      const txn = await tronweb.transactionBuilder.triggerSmartContract(
+        ca,
+        'registerUser',
+        {
+          feeLimit: 100_000_000,
+          callValue: Number(amountInSun)
+        },
+        [
+          {type: 'uint256', value: !!ref ? ref : 1}
+        ]
+      );
+      // @ts-ignore
+      const signedTx = await signTransaction(txn.transaction);
+      // @ts-ignore
+      const result = await tronweb.trx.sendRawTransaction(signedTx);
+      console.log(result)
+      getBalance();
     } catch (e) {
       console.log(e);
-    } 
-  }, [solAmount, signMessage, signTransaction]);
+    }
+  }, [solAmount, signTransaction, address]);
 
   const DialogContentRender = (
     <div>
@@ -81,7 +103,7 @@ const SignatureRequestModal = ({
               <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center font-medium text-black">
                 SC
               </div>
-              <div className="text-sm mt-2 text-center">{}</div>
+              <div className="text-sm mt-2 text-center">{ }</div>
             </div>
           </div>
           <div className="space-y-4 border-t border-gray-200 pt-4 mb-6">
@@ -152,7 +174,7 @@ const SignatureRequestModal = ({
             <div className="space-y-4 text-left ">
               <div>
                 <span className="font-medium">Transfer account</span>
-                <div>{}</div>
+                <div>{ }</div>
               </div>
               {/* <div>
                       <span className="font-medium">Receiving account</span>
@@ -194,7 +216,7 @@ const SignatureRequestModal = ({
 
   return (
     <Dialog>
-      <DialogTrigger disabled={solAmount === 0 } asChild>
+      <DialogTrigger disabled={solAmount === 0} asChild>
         <button
           disabled={solAmount === 0}
           className="w-full bg-[#fff] hover:bg-white/20 transition-all duration-300 text-black py-2 px-4 rounded flex-1 font-medium text-[15px] disabled:hover:bg-[#fff] disabled:cursor-not-allowed"

@@ -1,11 +1,12 @@
 import Config from '../config';
-import { TronWeb } from 'tronweb';
+import { Contract, TronWeb } from 'tronweb';
 
-export const ca = 'TXvZpjEQiR7iv4Yn1XtXPkt61mocBrrNQu';
+export const ca = 'TWRxQsh1pZUgPDGKdgqYuy4Y21bW1zARt8';
 
 const chain = Config.chain;
 
 export const tronweb = new TronWeb({
     fullHost: chain.fullHost
 });
+
 
